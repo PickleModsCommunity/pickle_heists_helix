@@ -1,0 +1,59 @@
+-- NetworkObjects = {}
+-- PendingNetworkObjectUpdates = {}
+
+-- function GetNetworkObject(netId)
+--     local netObject = NetworkObjects[netId]
+--     if HPlayer then
+--         return LocalNetworkObjects[netId]
+--     else
+--         return {
+--             model = netObject.model,
+--             position = netObject.position,
+--             rotation = netObject.rotation,
+--             scale = netObject.scale,
+--             material = netObject.material,
+--             attachment = netObject.attachment,
+--             setActorScale3D = function(scale)
+--                 netObject.scale = scale
+--                 if IsNetworkObjectUpdating(netId) then return end
+--                 BroadcastEvent('pickle-heists:updateNetworkObjectKVP', netId, "scale", netObject.scale)
+--             end,
+--             setMaterial = function(index, material)
+--                 netObject.material = {index = index, material = material}
+--                 if IsNetworkObjectUpdating(netId) then return end
+--                 BroadcastEvent('pickle-heists:updateNetworkObjectKVP', netId, "material", netObject.material)
+--             end,
+--             transformActorLerp = function(duration, settings)
+--                 if IsNetworkObjectUpdating(netId) then return end
+--                 BroadcastEvent('pickle-heists:transformActorLerp', netId, duration, settings)
+--             end,
+--             attachToPlayer = function(player, settings)
+--                 netObject.attachment = {
+--                     identifier = GetIdentifier(player),
+--                     settings = settings,
+--                 }
+--                 if IsNetworkObjectUpdating(netId) then return end
+--                 BroadcastEvent('pickle-heists:updateNetworkObjectKVP', netId, "attachment", netObject.attachment)
+--             end,
+--             detachFromPlayer = function(player)
+--                 netObject.attachment = nil
+--                 if IsNetworkObjectUpdating(netId) then return end
+--                 BroadcastEvent('pickle-heists:updateNetworkObjectKVP', netId, "attachment", nil)
+--             end,
+--             setActorTransform = function(position, rotation)
+--                 netObject.position = position
+--                 netObject.rotation = rotation
+--                 if IsNetworkObjectUpdating(netId) then return end
+--                 BroadcastEvent('pickle-heists:updateNetworkObjectTransform', netId, position, rotation)
+--             end,
+--         }
+--     end
+-- end
+
+-- function GetNetworkedObjects()
+--     local objects = {}
+--     for netId, netObject in pairs(NetworkObjects) do
+--         objects[netId] = netObject
+--     end
+--     return objects
+-- end

@@ -1,0 +1,137 @@
+-- LocalNetworkObjects = {}
+
+-- function UpdateNetworkObject(netId)
+--     local netObject = NetworkObjects[netId]
+--     local object = LocalNetworkObjects[netId]
+--     if not object or not netObject then return end
+--     if netObject.material then
+--         local Component = object:K2_GetComponentsByClass(UE.UPrimitiveComponent)[1]
+--         local Material = Component:CreateDynamicMaterialInstance(netObject.material.index, UE.UObject.Load(netObject.material.material), nil)
+--         object:SetMaterial(netObject.material.index, Material)
+--     end
+--     if netObject.scale then
+--         object:SetActorScale3D(netObject.scale)
+--     end
+--     if netObject.attachment then
+--         local players = GetAllPlayers()
+--         for i=1, #players do
+--             local identifier = GetIdentifier(players[i])
+--             if identifier == netObject.attachment.identifier then
+--                 local character = GetPlayerPawn(players[i])
+--                 if GetIdentifier() == identifier then
+--                     character = HPlayer:GetControlledCharacter()
+--                 end
+--                 Lib.AttachEntityToCharacter(object, character, netObject.attachment.settings.boneName, netObject.attachment.settings.coords, netObject.attachment.settings.rotation)
+--                 break
+--             end
+--         end
+--     end
+-- end
+
+-- function EnsureNetworkObject(netId)
+--     local netObject = NetworkObjects[netId]
+--     if not netObject then
+--         if LocalNetworkObjects[netId] then
+--             LocalNetworkObjects[netId]:K2_DestroyActor()
+--             LocalNetworkObjects[netId] = nil
+--         else
+--             print("Network object not found", netId)
+--         end
+--         return
+--     end
+--     if LocalNetworkObjects[netId] then 
+--         UpdateNetworkObject(netId)
+--         return
+--     end
+--     local object = Lib.CreateObject(netObject.model, netObject.position, netObject.rotation)
+--     LocalNetworkObjects[netId] = object
+--     UpdateNetworkObject(netId)
+-- end
+
+-- RegisterClientEvent('pickle-heists:addNetworkObject', function(netId, object)
+--     NetworkObjects[netId] = object
+--     EnsureNetworkObject(netId)
+-- end)
+
+-- RegisterClientEvent('pickle-heists:removeNetworkObject', function(netId)
+--     NetworkObjects[netId] = nil
+--     EnsureNetworkObject(netId)
+-- end)
+
+-- RegisterClientEvent('pickle-heists:updateNetworkObject', function(netId, object)
+--     NetworkObjects[netId] = object
+--     EnsureNetworkObject(netId)
+-- end)
+
+-- RegisterClientEvent('pickle-heists:updateNetworkObjectKVP', function(netId, key, value)
+--     print("UPDATING NETWORK OBJECT KVP", netId, key, value)
+--     if not NetworkObjects[netId] then return end
+--     if not value then
+--         if key == "attachment" then
+--             Lib.DetachEntity(LocalNetworkObjects[netId])
+--         end
+--     end
+--     NetworkObjects[netId][key] = value
+--     UpdateNetworkObject(netId)
+-- end)
+
+-- RegisterClientEvent('pickle-heists:syncObjects', function(objects)
+--     for netId, object in pairs(objects) do
+--         NetworkObjects[netId] = object
+--         EnsureNetworkObject(netId)
+--     end
+-- end)
+
+-- RegisterClientEvent('pickle-heists:transformActorLerp', function(netId, duration, settings)
+--     local netObject = NetworkObjects[netId]
+--     local object = LocalNetworkObjects[netId]
+--     if not object or not netObject then return end
+--     Lib.CreateThread(function()
+--         local startLocation = settings.position.start
+--         local endLocation = settings.position.finish
+--         local startScale = settings.scale.start
+--         local endScale = settings.scale.finish
+--         SetEntityCoords(object, startLocation)
+--         object:SetActorScale3D(startScale)
+--         local alpha = 0.0
+--         local lerpDuration = duration * 10 -- Seconds
+--         local timerId
+--         timerId = Lib.SetInterval(function()
+--             local DeltaTime = UE.UGameplayStatics.GetWorldDeltaSeconds(object)
+--                 -- Calculate the new alpha value
+--             alpha = alpha + DeltaTime / lerpDuration
+            
+--             -- Clamp alpha between 0 and 1 to prevent overshooting
+--             alpha = math.min(1.0, alpha)
+        
+--             -- -- Calculate the new location using Lerp
+--             local newLocation = UE.UKismetMathLibrary.VLerp(startLocation, endLocation, alpha)
+--             -- -- Set the actor's new location
+--             SetEntityCoords(object, newLocation)
+--             local newScale = UE.UKismetMathLibrary.VLerp(startScale, endScale, alpha)
+--             object:SetActorScale3D(Vector(newScale.X, newScale.Y, newScale.Z))
+--             if alpha >= 1 then
+--                 Lib.ClearInterval(timerId)
+--                 return
+--             end
+--         end, 1)
+--     end)
+-- end)
+
+-- RegisterClientEvent('pickle-heists:updateNetworkObjectTransform', function(netId, position, rotation)
+--     local netObject = NetworkObjects[netId]
+--     local object = LocalNetworkObjects[netId]
+--     if not object or not netObject then return end
+--     netObject.position = position
+--     netObject.rotation = rotation
+--     SetEntityCoords(object, position)
+--     SetEntityRotation(object, rotation)
+-- end)
+
+-- RegisterClientEvent('pickle-heists:pushNetworkObjectEvent', function(netId, events)
+--     for i=1, #events do
+--         local event = events[i]
+        
+--         TriggerLocalClientEvent(event.event, netId, table.unpack(event.args))
+--     end
+-- end)

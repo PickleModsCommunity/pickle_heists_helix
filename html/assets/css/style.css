@@ -1,0 +1,137 @@
+@font-face {
+    font-family: VCR;
+    src: url(../fonts/VCR_OSD_MONO.ttf);
+}
+
+body {
+    background-color: transparent;
+    overflow: hidden;
+}
+
+#app-minigame {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%) perspective(2500px);
+    width: 40vw;
+    height: 25vw;
+    background-color: rgb(139, 139, 139);    
+}
+
+#am-hinge {
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent; 
+    position: absolute;   
+    transform: translate(0%, -0.5vw);
+    width: 100%;
+    height: 1vw;
+    transition: 3s;
+    transform-origin: 0% 0%;
+}
+
+#am-hinge .left > div, #am-hinge .right > div {
+    border-radius: 0.2vw;
+    width: 2vw;
+    height: 1vw;
+    background-color: rgb(109, 109, 109); 
+}
+
+#am-hinge .left, #am-hinge .right {
+    display: flex;
+}
+
+#am-latch {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(109, 109, 109); 
+    position: absolute;   
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, calc(100%));
+    width: 8vw;
+    height: 0.5vw;
+    transition: 3s;
+    transform-origin: 0% 0%;
+}
+
+#am-overlay {
+    z-index: 1;
+    background-color: rgb(175, 175, 175); 
+    background-image: url("../images/hazard.png");
+    background-size: 10vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;   
+    width: 100%;
+    height: 100%;
+    transition: 3s;
+    transform-origin: 0% 0%;
+    /* transform: rotateX(145deg); */
+}
+
+#am-overlay:hover {
+    cursor: pointer;
+}
+
+#am-overlay.active {
+    transform: rotateX(145deg);
+}
+
+#am-screen {
+    display: flex;
+    background-color: rgb(53, 53, 53); 
+    position: absolute;   
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 1vw);
+    height: calc(100% - 2vw);
+    transition: 3s;
+    transform-origin: 0% 0%;
+}
+
+#ams-nodes {
+    display: flex;
+    justify-content: space-evenly;
+    justify-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#ams-nodes > div > div:nth-child(1), #ams-nodes > div > div:nth-child(3) {
+    width: 0.75vw;
+    height: 2.5vw;
+    margin-top: auto;
+}
+
+#ams-nodes > div > div:nth-child(2) {
+    width: 0.75vw;
+    height: calc(100% - 5vw);
+}
+
+#ams-welding {
+    display: none;
+    position: absolute;
+    background-image: url("../images/weld.gif");
+    background-size: 5vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    filter: hue-rotate(195deg);
+    pointer-events: none;
+}
+
+#am-timer {
+    z-index: 50;
+    font-family: VCR;
+    position: absolute;
+    bottom: -5vw;
+    left: 50%;
+    transform: translateX(-50%) perspective(2500px);
+    color: white;
+    font-size: 4vw;
+}

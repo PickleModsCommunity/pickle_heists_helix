@@ -1,0 +1,32 @@
+-- PendingNetworkObjects = {}
+
+-- function IsNetworkObjectUpdating(netId)
+--     for i=1, #PendingNetworkObjects do
+--         if PendingNetworkObjects[i] == netId then
+--             return true
+--         end
+--     end
+--     return false
+-- end
+
+-- function CreateNetworkObject(model, position, rotation)
+--     local netId
+--     repeat
+--         netId = math.random(1, 100000)
+--     until not NetworkObjects[netId]
+--     NetworkObjects[netId] = {
+--         model = model,
+--         position = position,
+--         rotation = rotation,
+--     }
+--     table.insert(PendingNetworkObjects, netId)
+--     if #PendingNetworkObjects > 1 then return netId end
+--     Timer.SetTimeout(function()
+--         for i=1, #PendingNetworkObjects do
+--             local netId = PendingNetworkObjects[i]
+--             BroadcastEvent('pickle-heists:addNetworkObject', netId, NetworkObjects[netId])
+--         end
+--         PendingNetworkObjects = {}
+--     end, 100)
+--     return netId
+-- end

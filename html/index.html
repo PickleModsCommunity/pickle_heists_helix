@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>Pickle Heists</title>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script src="assets/js/main.js"></script>
+        <link rel="stylesheet" href="assets/css/style.css"/>
+        <style> 
+            .interactText {
+                display: none;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 20px;
+                font-weight: bold;
+                color: white;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body ondragstart="return false;" ondrop="return false;">
+        <div id="app-minigame">
+            <div id="am-hinge">
+                <div class="left">
+                    <div><div></div></div>
+                    <div><div></div></div>
+                    <div><div></div></div>
+                </div>
+                <div class="right">
+                    <div><div></div></div>
+                    <div><div></div></div>
+                    <div><div></div></div>
+                </div>
+            </div>
+            <div id="am-latch"></div>
+            <div id="am-overlay"></div>
+            <div id="am-screen">
+                <div id="ams-nodes">
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div id="am-timer">
+                00:00
+            </div>
+        </div>
+        <div id="ams-welding"></div>
+    </body>
+</html>
